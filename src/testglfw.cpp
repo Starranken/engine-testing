@@ -5,6 +5,7 @@
 using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow *window);
 
 int main()
 {
@@ -39,11 +40,52 @@ int main()
     //Set the window resize callback
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
+    /*
+    Prerender commands here...
+    */
+
+    //Set the clear color
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+   //Triangle points
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f, 0.5f, 0.0f
+    };
+
+   //Vertex Buffer Object
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    //Give the VBO data (triangle's vertices)
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+
+
+
+
+
 
 
     //Render Loop
     while(!glfwWindowShouldClose(window))
     {
+        //Process input
+        processInput(window);
+
+        //Clear the screen with the clear color
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        /*
+        Render commands here...
+        */
+
+       
+
+
+        //check and call events and swap the buffers
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -53,6 +95,14 @@ int main()
     return 0;
 }
 
+//Function to process input based on the window object
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    glfwSetWindowShouldClose(window, true);
+}
+
+//Function to resize the window
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
