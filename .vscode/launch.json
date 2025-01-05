@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/bin/${fileBasenameNoExtension}/${fileBasenameNoExtension}.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/bin/${fileBasenameNoExtension}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": true,
             "preLaunchTask": "Build with vcvarsall",
